@@ -34,7 +34,6 @@ function NoteModalInput({ noteEditState, triggerModalActive }) {
     const newNote = { _id: indexToFind, title, note };
     notes[indexToUpdate] = newNote;
     const newNotes = notes;
-    console.log(newNotes);
     dispatch({ type: "SET_NOTES_INITIAL", payload: newNotes });
   }
 
@@ -42,7 +41,7 @@ function NoteModalInput({ noteEditState, triggerModalActive }) {
   async function postNewNote(data) {
     try {
       const response = await axios.post(
-        "/api/notes",
+        `${import.meta.env.VITE_API_BASE_URL}/api/notes`,
         {
           user_id: isAuthenticated._id,
           ...data,
@@ -54,12 +53,14 @@ function NoteModalInput({ noteEditState, triggerModalActive }) {
         }
       );
 
+      const insertedId = response.data.insertedId;
+
       // updating local state with new note only when post request is
       // successfull
       if (response.status === 201) {
         dispatch({
           type: "SET_NOTES",
-          payload: { _id: Math.floor(Math.random() * 10), title, note },
+          payload: { _id: insertedId, title, note },
         });
       }
 
@@ -72,11 +73,14 @@ function NoteModalInput({ noteEditState, triggerModalActive }) {
 
   async function deleteNote(_id) {
     try {
-      const response = await axios.delete(`/api/notes/${_id}`, {
-        headers: {
-          "x-access-token": isAuthenticated?.token,
-        },
-      });
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/api/notes/${_id}`,
+        {
+          headers: {
+            "x-access-token": isAuthenticated?.token,
+          },
+        }
+      );
 
       // deleting note from local state when delete request is successfull
       if (response.status === 200) {
@@ -90,9 +94,8 @@ function NoteModalInput({ noteEditState, triggerModalActive }) {
 
   async function updateNote(_id, data, idToUpdateLocally) {
     try {
-      console.log("update triggered.");
       const response = await axios.patch(
-        `/api/notes/${_id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/notes/${_id}`,
         {
           ...data,
         },

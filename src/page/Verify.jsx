@@ -28,10 +28,13 @@ function Verify() {
     event.preventDefault();
 
     try {
-      const response = await axios.post("/api/users/login/verify", {
-        email,
-        otp,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/login/verify`,
+        {
+          email,
+          otp,
+        }
+      );
 
       if (response.status === 200) {
         // setting auth information to global context

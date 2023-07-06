@@ -22,9 +22,12 @@ function Login() {
 
   async function requestForOTP(email) {
     try {
-      const response = await axios.post("/api/users/login", {
-        email: email,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+        {
+          email: email,
+        }
+      );
 
       if (response.status === 200) {
         navigate("/verify");
@@ -36,7 +39,6 @@ function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("submit triggered.");
 
     requestForOTP(email);
     dispatch({ type: "SET_EMAIL", payload: email });

@@ -23,7 +23,7 @@ function Main() {
       {notes.length === 0 ? (
         <NoNotes />
       ) : (
-        <section className="px-1 pb-[97px]  grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <section className="px-1 pb-[97px]  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {notes?.map((note) => (
             <Note
               key={note._id}

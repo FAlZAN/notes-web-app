@@ -30,7 +30,10 @@ function Signup() {
 
   async function requestForSignup(data) {
     try {
-      const response = await axios.post("/api/users/signup", { ...data });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/signup`,
+        { ...data }
+      );
       console.log(response);
 
       if (response.status === 201) {
@@ -49,7 +52,10 @@ function Signup() {
 
   async function requestForLogin(email) {
     try {
-      const response = await axios.post("/api/users/login", { email });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+        { email }
+      );
       console.log(response);
     } catch (error) {
       console.log(error);

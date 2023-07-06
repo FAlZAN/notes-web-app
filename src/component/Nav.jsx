@@ -33,7 +33,7 @@ function Nav() {
           </span>
 
           <span
-            className="w-16 h-16 rounded-full cursor-pointer"
+            className="w-14 h-14 rounded-full cursor-pointer"
             onClick={handleProfileClick}
           >
             <img

@@ -31,11 +31,16 @@ export const NotesContextProvider = ({ children }) => {
   useEffect(() => {
     async function getNotes() {
       try {
-        const response = await axios.get(`/api/notes/${isAuthenticated?._id}`, {
-          headers: {
-            "x-access-token": isAuthenticated?.token,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/notes/${
+            isAuthenticated?._id
+          }`,
+          {
+            headers: {
+              "x-access-token": isAuthenticated?.token,
+            },
+          }
+        );
         dispatch({ type: "SET_NOTES_INITIAL", payload: response.data });
       } catch (error) {
         console.log(error);
